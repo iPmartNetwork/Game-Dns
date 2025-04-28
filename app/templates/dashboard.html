@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>داشبورد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+    <h2>داشبورد - مدیریت زون‌های DNS</h2>
+
+    <form method="POST" action="/add_zone" class="row g-3">
+        <div class="col-md-3">
+            <input name="domain" placeholder="دامنه" class="form-control" required>
+        </div>
+        <div class="col-md-3">
+            <input name="ip" placeholder="IP یا آدرس مقصد" class="form-control" required>
+        </div>
+        <div class="col-md-2">
+            <select name="type" class="form-control" required>
+                <option value="A">A</option>
+                <option value="AAAA">AAAA</option>
+                <option value="CNAME">CNAME</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-success w-100">افزودن رکورد</button>
+        </div>
+    </form>
+
+    <h3 class="mt-5">لیست رکوردها</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th>دامنه</th>
+                <th>مقصد</th>
+                <th>نوع</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for zone in zones %}
+            <tr>
+                <td>{{ zone[0] }}</td>
+                <td>{{ zone[1] }}</td>
+                <td>{{ zone[2] }}</td>
+                <td>{{ zone[3] }}</td>
+                <td>
+                    <a href="/delete_zone/{{ zone[0] }}" class="btn btn-danger btn-sm">حذف</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/logs" class="btn btn-info">مشاهده لاگ‌ها</a>
+    <a href="/logout" class="btn btn-secondary">خروج</a>
+</body>
+</html>
