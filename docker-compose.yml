@@ -1,9 +1,11 @@
-version: '3.7'
+version: '3.3'
 services:
   dns_panel:
     build: .
     ports:
+      - "5000:5000"
       - "53:53/udp"
       - "53:53/tcp"
-      - "5000:5000"
+    volumes:
+      - ./backup:/backup
     restart: unless-stopped
